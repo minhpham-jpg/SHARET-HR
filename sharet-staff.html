@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShareT HR — Nhân Viên</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Be Vietnam Pro',system-ui,sans-serif;background:#F0F4F5;color:#18181A;font-size:14px;min-height:100vh}
+.hdr{background:#fff;border-bottom:3px solid #1B8A99;padding:0 18px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.logo-tx{font-size:14px;font-weight:700;color:#0D6370}.logo-tx b{color:#D42B5A}
+.logo-ico{width:30px;height:30px;background:linear-gradient(135deg,#1B8A99,#0D6370);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.page{max-width:900px;margin:0 auto;padding:20px 14px 100px}
+.gate{background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.07);padding:32px 24px;text-align:center;max-width:420px;margin:40px auto}
+.gate-ico{font-size:40px;margin-bottom:12px}
+.gate h2{font-size:17px;font-weight:700;margin-bottom:6px}
+.gate p{font-size:13px;color:#5A5A60;margin-bottom:20px;line-height:1.6}
+.ubar{display:flex;align-items:center;gap:10px;background:#E0F5F7;border-radius:11px;padding:9px 13px;margin-bottom:16px;border:1px solid rgba(27,138,153,.15)}
+.ava{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;color:#fff}
+.ntabs{display:flex;gap:3px;background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:12px;padding:4px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.05);overflow-x:auto}
+.ntab{flex:1;min-width:72px;padding:8px 6px;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;border:none;background:none;color:#5A5A60;font-family:inherit;transition:all .13s;white-space:nowrap}
+.ntab.on{background:#7c3aed;color:#fff}.ntab.on.teal{background:#1B8A99}.ntab.on.rose{background:#D42B5A}.ntab.on.green{background:#1a9e75}.ntab.on.ai{background:linear-gradient(135deg,#7c3aed,#1B8A99)}
+.card{background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden;margin-bottom:13px}
+.ch{padding:12px 16px;border-bottom:1px solid rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.ct{font-size:13.5px;font-weight:600}
+.cb{padding:16px}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fg{display:flex;flex-direction:column;gap:4px}.fg.full{grid-column:1/-1}
+label{font-size:11px;font-weight:700;color:#5A5A60;text-transform:uppercase;letter-spacing:.05em}
+.req{color:#D42B5A}
+input,select,textarea{padding:8px 11px;border:1.5px solid rgba(0,0,0,.1);border-radius:9px;font-size:13px;background:#fff;color:#18181A;font-family:inherit;width:100%;outline:none;transition:border .12s}
+input:focus,select:focus,textarea:focus{border-color:#1B8A99;box-shadow:0 0 0 3px rgba(27,138,153,.1)}
+textarea{min-height:66px;resize:vertical;line-height:1.5}
+.dc{border-radius:9px;padding:8px 12px;font-size:12px;font-weight:500;line-height:1.5;margin-top:8px}
+.dc.ok{background:#E1F5EE;color:#0D6E56}.dc.err{background:#FCE8EE;color:#a01f44}
+.ffoot{display:flex;justify-content:flex-end;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(0,0,0,.06)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;border-radius:9px;font-size:12.5px;font-weight:600;cursor:pointer;border:1.5px solid rgba(0,0,0,.1);background:#fff;color:#18181A;font-family:inherit;transition:all .12s}
+.btn:hover{background:#F3F8F9}.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.teal{background:#1B8A99;border-color:#1B8A99;color:#fff}.btn.rose{background:#D42B5A;border-color:#D42B5A;color:#fff}
+.btn.green{background:#1a9e75;border-color:#1a9e75;color:#fff}.btn.sm{padding:5px 12px;font-size:12px}
+.btn.ai{background:linear-gradient(135deg,#7c3aed,#1B8A99);border-color:transparent;color:#fff}
+.btn.ai:hover{opacity:.9}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-dow{text-align:center;font-size:10px;font-weight:700;color:#9898A0;padding:4px 0}
+.cal-day{min-height:70px;border:1px solid rgba(0,0,0,.07);border-radius:7px;padding:4px 5px;background:#fff;cursor:pointer;transition:all .11s;position:relative;overflow:hidden}
+.cal-day:hover{border-color:#1B8A99;box-shadow:0 0 0 2px rgba(27,138,153,.1)}
+.cal-day.today{border-color:#1B8A99;border-width:2px;background:#E0F5F7}
+.cal-day.other{opacity:.35;background:#F3F8F9;cursor:default;pointer-events:none}
+.cal-day.weekend .cal-dn{color:#9898A0}
+.cal-dn{font-size:11px;font-weight:700;margin-bottom:2px}
+.tdot{position:absolute;top:4px;right:5px;width:4px;height:4px;border-radius:50%;background:#1B8A99}
+.chips{display:flex;flex-direction:column;gap:1px;margin-top:1px}
+.chip{font-size:9px;font-weight:600;padding:1px 4px;border-radius:3px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip.lp{background:#FEF0D6;color:#a05800}.chip.la{background:#E1F5EE;color:#0D6E56}.chip.lr{background:#FCE8EE;color:#a01f44}
+.chip.wp{background:#ede9fe;color:#6d28d9}.chip.wa{background:#dbeafe;color:#1d4ed8}.chip.wr{background:#FCE8EE;color:#a01f44}
+.chip.mine{outline:1.5px solid currentColor;outline-offset:-1px}
+.cal-leg{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;font-size:11px;color:#5A5A60;align-items:center}
+.ll{width:10px;height:10px;border-radius:2px;display:inline-block;flex-shrink:0}
+.popup-ov{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:200;display:none;align-items:center;justify-content:center}
+.popup-ov.show{display:flex}
+.popup{background:#fff;border-radius:13px;width:400px;max-width:94vw;max-height:88vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.16)}
+.popup-head{padding:14px 16px;border-bottom:1px solid rgba(0,0,0,.07);display:flex;align-items:center;justify-content:space-between}
+.popup-body{padding:14px 16px}
+.pi{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-bottom:1px solid rgba(0,0,0,.06)}
+.pi:last-child{border-bottom:none}
+.pi-ava{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;flex-shrink:0;color:#fff}
+.pi-name{font-size:12px;font-weight:600}.pi-sub{font-size:11px;color:#5A5A60;line-height:1.5}
+.pill{display:inline-flex;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px}
+.pill.pending{background:#FEF0D6;color:#a05800}.pill.approved{background:#E1F5EE;color:#0D6E56}.pill.rejected{background:#FCE8EE;color:#a01f44}
+.ri{border:1px solid rgba(0,0,0,.07);border-radius:9px;padding:11px 13px;display:flex;align-items:flex-start;justify-content:space-between;gap:9px;background:#fff;margin-bottom:8px}
+.ri-kind{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.ri-main{font-size:12.5px;font-weight:600;margin-bottom:2px}.ri-sub{font-size:11px;color:#5A5A60;line-height:1.5}
+.empty{text-align:center;padding:28px;color:#9898A0;font-size:13px}
+.info{border-radius:9px;padding:9px 13px;font-size:12px;margin-bottom:13px;line-height:1.6;border-left:3px solid}
+.info.rose{background:#FCE8EE;color:#a01f44;border-color:#D42B5A}
+.info.red{background:#FCE8EE;color:#a01f44;border-color:#D42B5A}
+.info.ai{background:linear-gradient(135deg,rgba(124,58,237,.07),rgba(27,138,153,.07));border-color:#7c3aed;color:#4c1d95}
+.hidden{display:none!important}
+
+/* AI CHATBOT */
+.ai-fab{position:fixed;bottom:22px;right:22px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#1B8A99);border:none;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,.4);display:flex;align-items:center;justify-content:center;font-size:22px;z-index:150;transition:transform .15s}
+.ai-fab:hover{transform:scale(1.08)}
+.ai-panel{position:fixed;bottom:84px;right:22px;width:340px;max-width:calc(100vw - 32px);height:480px;background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.18);z-index:150;display:flex;flex-direction:column;overflow:hidden;transition:all .2s}
+.ai-panel.hidden{display:none!important}
+.ai-head{padding:12px 14px;background:linear-gradient(135deg,#7c3aed,#1B8A99);display:flex;align-items:center;justify-content:space-between}
+.ai-head-title{font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:7px}
+.ai-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.ai-msg{max-width:85%;padding:9px 12px;border-radius:12px;font-size:12.5px;line-height:1.55}
+.ai-msg.bot{background:#F0F4F5;color:#18181A;border-bottom-left-radius:4px;align-self:flex-start}
+.ai-msg.user{background:linear-gradient(135deg,#7c3aed,#1B8A99);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.ai-msg.typing{background:#F0F4F5;align-self:flex-start}
+.ai-foot{padding:10px;border-top:1px solid rgba(0,0,0,.07);display:flex;gap:7px}
+.ai-foot input{flex:1;padding:8px 11px;border:1.5px solid rgba(0,0,0,.1);border-radius:9px;font-size:12.5px;font-family:inherit;outline:none}
+.ai-foot input:focus{border-color:#7c3aed}
+.ai-foot button{padding:8px 12px;border-radius:9px;background:linear-gradient(135deg,#7c3aed,#1B8A99);border:none;color:#fff;cursor:pointer;font-size:13px}
+.ai-suggestions{display:flex;flex-wrap:wrap;gap:5px;padding:0 12px 10px}
+.ai-sug{padding:5px 10px;border-radius:20px;font-size:11px;font-weight:600;background:#F0F4F5;border:1px solid rgba(0,0,0,.08);cursor:pointer;color:#5A5A60;transition:all .12s}
+.ai-sug:hover{background:#ede9fe;color:#7c3aed;border-color:#7c3aed}
+
+/* AI REASON SUGGESTIONS */
+.ai-reason-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.ai-rc{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;background:#ede9fe;color:#6d28d9;border:1px solid rgba(124,58,237,.2);cursor:pointer;transition:all .12s}
+.ai-rc:hover{background:#7c3aed;color:#fff}
+
+@media(max-width:540px){.fg2{grid-template-columns:1fr}.fg.full{grid-column:1}.cal-day{min-height:54px}.chips .chip:nth-child(n+3){display:none}.ntab{min-width:58px;font-size:11px}.ai-panel{width:calc(100vw - 32px);right:16px}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div style="display:flex;align-items:center;gap:8px">
+    <div class="logo-ico">✏️</div>
+    <span class="logo-tx">Share<b>T</b> HR <span style="font-size:11px;color:#5A5A60;font-weight:400">— Nhân viên</span></span>
+  </div>
+</header>
+
+<div class="page">
+  <div id="err-bar" class="info red hidden"></div>
+
+  <!-- GATE -->
+  <div id="gate" class="gate">
+    <div class="gate-ico">👋</div>
+    <h2>Xin chào!</h2>
+    <p>Nhập tên và chọn phòng ban để bắt đầu.</p>
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:12px">
+      <input type="text" id="g-name" placeholder="Họ và tên đầy đủ..." onkeydown="if(event.key==='Enter')login()">
+      <select id="g-dept">
+        <option value="">— Chọn phòng ban —</option>
+        <option>Business Support Department</option>
+        <option>Account Department</option>
+        <option>Vận Hành Department</option>
+      </select>
+    </div>
+    <div id="gate-err" class="dc err hidden" style="margin-bottom:10px"></div>
+    <button class="btn teal" style="width:100%;justify-content:center" onclick="login()">Tiếp tục →</button>
+  </div>
+
+  <!-- MAIN -->
+  <div id="main" class="hidden">
+    <div class="ubar">
+      <div class="ava" id="u-ava" style="width:30px;height:30px;font-size:10px"></div>
+      <div style="flex:1"><b id="u-name"></b> · <span id="u-dept" style="color:#5A5A60;font-size:13px"></span></div>
+      <button onclick="logout()" style="font-size:11.5px;color:#9898A0;background:none;border:none;cursor:pointer;font-family:inherit">Đổi ↩</button>
+    </div>
+    <div class="ntabs">
+      <button class="ntab on teal" id="stab-cal" onclick="showStaff('cal')">📅 Lịch</button>
+      <button class="ntab" id="stab-leave" onclick="showStaff('leave')">🌴 Nghỉ phép</button>
+      <button class="ntab" id="stab-wfh" onclick="showStaff('wfh')">🏠 WFH</button>
+      <button class="ntab" id="stab-my" onclick="showStaff('my')">📋 Đơn của tôi</button>
+    </div>
+    <div id="ssec-cal"></div>
+    <div id="ssec-leave" class="hidden"></div>
+    <div id="ssec-wfh" class="hidden"></div>
+    <div id="ssec-my" class="hidden"></div>
+  </div>
+</div>
+
+<!-- DAY POPUP -->
+<div class="popup-ov" id="popup-ov" onclick="if(event.target===this)closePopup()">
+  <div class="popup">
+    <div class="popup-head"><b id="popup-title"></b><button onclick="closePopup()" style="background:none;border:none;cursor:pointer;font-size:17px;color:#5A5A60">✕</button></div>
+    <div class="popup-body" id="popup-body"></div>
+  </div>
+</div>
+
+<!-- AI CHATBOT FAB -->
+<button class="ai-fab" onclick="toggleChat()" title="Hỏi AI về chính sách nghỉ phép">🤖</button>
+
+<!-- AI CHAT PANEL -->
+<div class="ai-panel hidden" id="ai-panel">
+  <div class="ai-head">
+    <div class="ai-head-title">🤖 Trợ lý HR AI <span style="font-size:10px;opacity:.8;font-weight:400">· Powered by Claude</span></div>
+    <button onclick="toggleChat()" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.8);font-size:17px">✕</button>
+  </div>
+  <div class="ai-msgs" id="ai-msgs">
+    <div class="ai-msg bot">👋 Xin chào! Tôi là trợ lý HR AI. Tôi có thể giúp bạn về:<br><br>• Chính sách nghỉ phép<br>• Quy trình đăng ký WFH<br>• Câu hỏi về ngày phép<br><br>Bạn cần hỏi gì?</div>
+  </div>
+  <div class="ai-suggestions" id="ai-sugs">
+    <span class="ai-sug" onclick="sendSug(this)">Tôi còn bao nhiêu ngày phép?</span>
+    <span class="ai-sug" onclick="sendSug(this)">Quy trình xin WFH?</span>
+    <span class="ai-sug" onclick="sendSug(this)">Nghỉ bệnh cần giấy tờ gì?</span>
+    <span class="ai-sug" onclick="sendSug(this)">Phép không lương là gì?</span>
+  </div>
+  <div class="ai-foot">
+    <input id="ai-input" placeholder="Nhập câu hỏi..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<script>
+const SUPA = "https://fuvuyhaeymcwuojrctlu.supabase.co";
+const KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1dnV5aGFleW1jd3VvanJjdGx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyMDY0MjIsImV4cCI6MjA5Njc4MjQyMn0.qFvhQcEh9ICQtrHY0X8HqyU9XDUiIg-kEXLk8BzrMn0";
+const HDR  = {"Content-Type":"application/json","apikey":KEY,"Authorization":"Bearer "+KEY,"Prefer":"return=representation"};
+const CLAUDE_API = "/.netlify/functions/claude-proxy";
+
+async function api(method,table,body,filter){
+  const url=`${SUPA}/rest/v1/${table}${filter?'?'+filter:'?order=submitted_at.desc'}`;
+  const r=await fetch(url,{method,headers:HDR,body:body?JSON.stringify(body):undefined});
+  if(!r.ok)throw new Error(await r.text());
+  return method==='DELETE'?null:r.json();
+}
+
+async function callClaude(messages, systemPrompt){
+  const r = await fetch(CLAUDE_API, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      model:'claude-sonnet-4-6',
+      max_tokens:1000,
+      system: systemPrompt,
+      messages
+    })
+  });
+  const d = await r.json();
+  return d.content?.[0]?.text || 'Xin lỗi, có lỗi xảy ra.';
+}
+
+let LEAVES=[], WFHS=[], ME={name:'',dept:''};
+let calY, calM;
+const today=()=>new Date().toISOString().split('T')[0];
+
+const AVA=['#1B8A99','#7c3aed','#d42b5a','#059669','#d97706','#2563eb','#dc2626','#0891b2'];
+const avaC=n=>AVA[n.split('').reduce((a,c)=>a+c.charCodeAt(0),0)%AVA.length];
+const inits=n=>n.trim().split(/\s+/).map(w=>w[0]).slice(-2).join('').toUpperCase();
+const fmtD=s=>{if(!s)return'';const[y,m,d]=s.split('-');return`${d}/${m}/${y}`;};
+const fmtS=s=>{if(!s)return'';const[,m,d]=s.split('-');return`${d}/${m}`;};
+const MONTHS=['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
+const DOW=['CN','T2','T3','T4','T5','T6','T7'];
+function workdays(f,t){let d=new Date(f),e=new Date(t),c=0;while(d<=e){const w=d.getDay();if(w&&w!==6)c++;d.setDate(d.getDate()+1);}return c;}
+function allDates(f,t){const a=[],d=new Date(f),e=new Date(t);while(d<=e){a.push(d.toISOString().split('T')[0]);d.setDate(d.getDate()+1);}return a;}
+const stL={pending:'Chờ duyệt',approved:'Đã duyệt',rejected:'Từ chối'};
+
+async function loadData(){
+  try{
+    const[l,w]=await Promise.all([api('GET','leaves'),api('GET','wfhs')]);
+    LEAVES=l; WFHS=w;
+    document.getElementById('err-bar').classList.add('hidden');
+    renderAll();
+  }catch(e){
+    const bar=document.getElementById('err-bar');
+    bar.textContent='⚠ Không kết nối được database: '+e.message;
+    bar.classList.remove('hidden');
+  }
+}
+setInterval(loadData,15000);
+
+function renderAll(){
+  renderCalendar('ssec-cal', ME.name?ME:null, false);
+  renderMyRequests();
+  renderLeaveForm();
+  renderWfhForm();
+}
+
+function login(){
+  const n=document.getElementById('g-name').value.trim();
+  const d=document.getElementById('g-dept').value;
+  const err=document.getElementById('gate-err');
+  if(!n){err.textContent='Vui lòng nhập họ và tên.';err.classList.remove('hidden');return;}
+  if(!d){err.textContent='Vui lòng chọn phòng ban.';err.classList.remove('hidden');return;}
+  ME={name:n,dept:d};
+  localStorage.setItem('sharet_staff_me',JSON.stringify(ME));
+  err.classList.add('hidden');
+  initMain();
+}
+function logout(){
+  localStorage.removeItem('sharet_staff_me');
+  ME={name:'',dept:''};
+  document.getElementById('gate').classList.remove('hidden');
+  document.getElementById('main').classList.add('hidden');
+}
+function initMain(){
+  document.getElementById('gate').classList.add('hidden');
+  document.getElementById('main').classList.remove('hidden');
+  document.getElementById('u-name').textContent=ME.name;
+  document.getElementById('u-dept').textContent=ME.dept;
+  const av=document.getElementById('u-ava');
+  av.textContent=inits(ME.name); av.style.background=avaC(ME.name);
+  const t=new Date(); calY=t.getFullYear(); calM=t.getMonth();
+  renderAll();
+}
+
+function showStaff(s){
+  ['cal','leave','wfh','my'].forEach(x=>{
+    document.getElementById('ssec-'+x).classList.toggle('hidden',x!==s);
+    const t=document.getElementById('stab-'+x);
+    t.className='ntab'+(x===s?' on '+(x==='cal'?'teal':x==='wfh'?'rose':x==='my'?'green':''):'');
+  });
+  if(s==='cal') renderCalendar('ssec-cal',ME,false);
+  if(s==='my')  renderMyRequests();
+  if(s==='leave') renderLeaveForm();
+  if(s==='wfh') renderWfhForm();
+}
+
+function buildCalGrid(yr,mo,me,leaves,wfhs){
+  const todStr=today();
+  const idx={};
+  const add=(date,entry,kind)=>{if(!idx[date])idx[date]=[];idx[date].push({...entry,kind});};
+  leaves.forEach(e=>allDates(e.from,e.to).forEach(d=>add(d,e,'leave')));
+  wfhs.forEach(e=>add(e.date,e,'wfh'));
+  const firstDay=new Date(yr,mo,1).getDay();
+  const dim=new Date(yr,mo+1,0).getDate();
+  const prevD=new Date(yr,mo,0).getDate();
+  let h='';
+  DOW.forEach(d=>h+=`<div class="cal-dow">${d}</div>`);
+  for(let i=firstDay-1;i>=0;i--) h+=`<div class="cal-day other"><div class="cal-dn">${prevD-i}</div></div>`;
+  for(let d=1;d<=dim;d++){
+    const ds=`${yr}-${String(mo+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday=ds===todStr;
+    const dow=new Date(yr,mo,d).getDay();
+    const isWknd=dow===0||dow===6;
+    const entries=idx[ds]||[];
+    const myE=me?entries.filter(e=>e.name===me.name&&e.dept===me.dept):[];
+    const others=entries.filter(e=>!me||!(e.name===me.name&&e.dept===me.dept));
+    const shown=[...myE,...others].slice(0,3);
+    const more=entries.length-shown.length;
+    let chips='';
+    shown.forEach(e=>{
+      const isMine=me&&e.name===me.name&&e.dept===me.dept;
+      const cls=e.kind==='leave'?{pending:'lp',approved:'la',rejected:'lr'}[e.status]||'lp':{pending:'wp',approved:'wa',rejected:'wr'}[e.status]||'wp';
+      const nm=isMine?'Tôi':e.name.split(' ').pop();
+      chips+=`<div class="chip ${cls}${isMine?' mine':''}">${e.kind==='wfh'?'🏠':'🌴'} ${nm}</div>`;
+    });
+    if(more>0) chips+=`<div class="chip" style="background:#F3F8F9;color:#5A5A60">+${more}</div>`;
+    h+=`<div class="cal-day${isToday?' today':''}${isWknd?' weekend':''}" onclick="openDay('${ds}')">
+      <div class="cal-dn">${d}</div>${isToday?'<div class="tdot"></div>':''}
+      <div class="chips">${chips}</div>
+    </div>`;
+  }
+  const total=firstDay+dim; const rem=total%7?7-(total%7):0;
+  for(let i=1;i<=rem;i++) h+=`<div class="cal-day other"><div class="cal-dn">${i}</div></div>`;
+  return h;
+}
+
+function renderCalendar(containerId,me,isMgr){
+  const t=new Date(); const yr=calY||t.getFullYear(); const mo=calM!==undefined?calM:t.getMonth();
+  const el=document.getElementById(containerId);
+  const legMe=me?`<span><span class="ll" style="border:1.5px solid #1B8A99;background:transparent"></span> Của tôi</span>`:'';
+  el.innerHTML=`<div class="card">
+    <div class="ch">
+      <div class="ct">📅 Lịch toàn công ty</div>
+      <div style="display:flex;gap:5px">
+        <button class="btn sm" onclick="calNav(-1,'${containerId}','staff')">‹</button>
+        <button class="btn sm" onclick="calNavToday('${containerId}','staff')">Hôm nay</button>
+        <button class="btn sm" onclick="calNav(1,'${containerId}','staff')">›</button>
+      </div>
+    </div>
+    <div class="cb">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <h3 style="font-size:14px;font-weight:700">${MONTHS[mo]} ${yr}</h3>
+      </div>
+      <div class="cal-grid">${buildCalGrid(yr,mo,me,LEAVES,WFHS)}</div>
+      <div class="cal-leg">
+        <span><span class="ll" style="background:#FEF0D6"></span> Nghỉ (chờ)</span>
+        <span><span class="ll" style="background:#E1F5EE"></span> Nghỉ (duyệt)</span>
+        <span><span class="ll" style="background:#ede9fe"></span> WFH (chờ)</span>
+        <span><span class="ll" style="background:#dbeafe"></span> WFH (duyệt)</span>
+        ${legMe}
+      </div>
+    </div>
+  </div>`;
+}
+
+function calNav(dir,cid){
+  calM+=dir; if(calM<0){calM=11;calY--;} if(calM>11){calM=0;calY++;}
+  renderCalendar(cid,ME,false);
+}
+function calNavToday(cid){
+  const t=new Date(); calY=t.getFullYear(); calM=t.getMonth();
+  renderCalendar(cid,ME,false);
+}
+
+function openDay(ds){
+  const[y,m,d]=ds.split('-');
+  const leaves=LEAVES.filter(e=>allDates(e.from,e.to).includes(ds));
+  const wfhs=WFHS.filter(e=>e.date===ds);
+  document.getElementById('popup-title').textContent=`📅 ${d}/${m}/${y}`;
+  const body=document.getElementById('popup-body');
+  if(!leaves.length&&!wfhs.length){body.innerHTML='<div style="text-align:center;padding:24px;color:#9898A0;font-size:13px">Không có ai đăng ký ngày này.</div>';}
+  else{
+    let h='';
+    [...leaves.map(e=>({...e,kind:'leave'})),...wfhs.map(e=>({...e,kind:'wfh'}))].forEach(e=>{
+      const isMine=ME.name&&e.name===ME.name&&e.dept===ME.dept;
+      h+=`<div class="pi">
+        <div class="pi-ava" style="background:${avaC(e.name)}">${inits(e.name)}</div>
+        <div style="flex:1">
+          <div class="pi-name">${isMine?'<b style="color:#1B8A99">Tôi — </b>':''}${isMine?'':e.name}</div>
+          <div class="pi-sub">${e.kind==='leave'?`🌴 ${e.type} · ${fmtD(e.from)} → ${fmtD(e.to)} · ${e.days} ngày`:`🏠 WFH · ${e.session} · ${e.dept}`}</div>
+          ${e.reason&&e.reason!=='—'?`<div class="pi-sub">${e.reason}</div>`:''}
+          ${e.status==='rejected'&&e.reject_note?`<div class="pi-sub" style="color:#a01f44">Từ chối: ${e.reject_note}</div>`:''}
+        </div>
+        <span class="pill ${e.status}">${stL[e.status]}</span>
+      </div>`;
+    });
+    body.innerHTML=h;
+  }
+  document.getElementById('popup-ov').classList.add('show');
+}
+function closePopup(){document.getElementById('popup-ov').classList.remove('show');}
+
+// ── LEAVE FORM with AI SUGGEST ──
+function renderLeaveForm(){
+  const el=document.getElementById('ssec-leave');
+  const t=today();
+  el.innerHTML=`<div class="card">
+    <div class="ch">
+      <div class="ct">🌴 Đăng ký nghỉ phép</div>
+    </div>
+    <div class="cb">
+      <div id="lf-msg"></div>
+      <div class="fg2">
+        <div class="fg"><label>Loại nghỉ <span class="req">*</span></label>
+          <select id="lf-type" onchange="clearAiReasons()">
+            <option>Nghỉ phép năm</option><option>Nghỉ bệnh</option>
+            <option>Nghỉ không lương</option><option>Nghỉ cưới / gia đình</option><option>Phép bù</option>
+          </select>
+        </div>
+        <div class="fg"><label>Buổi</label>
+          <select id="lf-session" onchange="checkLeave()">
+            <option>Cả ngày</option><option>Nửa ngày sáng</option><option>Nửa ngày chiều</option>
+          </select>
+        </div>
+        <div class="fg"><label>Từ ngày <span class="req">*</span></label><input type="date" id="lf-from" value="${t}" onchange="checkLeave()"></div>
+        <div class="fg"><label>Đến ngày <span class="req">*</span></label><input type="date" id="lf-to" value="${t}" onchange="checkLeave()"></div>
+        <div class="fg"><label>Bàn giao cho</label><input type="text" id="lf-handover" placeholder="Tên đồng nghiệp..."></div>
+        <div class="fg full">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <label>Lý do</label>
+            <button class="btn ai sm" onclick="aiSuggestReason()" id="ai-suggest-btn">✨ AI gợi ý lý do</button>
+          </div>
+          <textarea id="lf-reason" placeholder="Mô tả ngắn (không bắt buộc)..."></textarea>
+          <div id="ai-reason-chips" class="ai-reason-chips"></div>
+        </div>
+      </div>
+      <div id="lf-dc"></div>
+      <div class="ffoot">
+        <button class="btn" onclick="renderLeaveForm()">Xóa</button>
+        <button class="btn teal" onclick="submitLeave()">✈ Gửi đơn</button>
+      </div>
+    </div>
+  </div>`;
+  checkLeave();
+}
+
+function clearAiReasons(){
+  const el=document.getElementById('ai-reason-chips');
+  if(el) el.innerHTML='';
+}
+
+async function aiSuggestReason(){
+  const btn=document.getElementById('ai-suggest-btn');
+  const type=document.getElementById('lf-type')?.value||'Nghỉ phép năm';
+  const chips=document.getElementById('ai-reason-chips');
+  btn.disabled=true; btn.textContent='⏳ Đang gợi ý...';
+  chips.innerHTML='<span style="font-size:11px;color:#9898A0">AI đang tạo gợi ý...</span>';
+  try{
+    const resp = await fetch(CLAUDE_API,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:1000,
+        system:'Bạn là trợ lý HR. Hãy đưa ra đúng 4 mẫu lý do nghỉ phép ngắn gọn, chuyên nghiệp, phù hợp cho loại nghỉ được yêu cầu. Trả về JSON array: ["lý do 1","lý do 2","lý do 3","lý do 4"]. Chỉ JSON, không giải thích.',
+        messages:[{role:'user',content:`Loại nghỉ: ${type}`}]
+      })
+    });
+    const data=await resp.json();
+    const text=data.content?.[0]?.text||'[]';
+    const clean=text.replace(/```json|```/g,'').trim();
+    const reasons=JSON.parse(clean);
+    chips.innerHTML=reasons.map(r=>`<span class="ai-rc" onclick="useReason('${r.replace(/'/g,"\\'")}')">+ ${r}</span>`).join('');
+  }catch(e){
+    chips.innerHTML='<span style="font-size:11px;color:#a01f44">Lỗi kết nối AI</span>';
+  }
+  btn.disabled=false; btn.textContent='✨ AI gợi ý lý do';
+}
+
+function useReason(r){
+  const ta=document.getElementById('lf-reason');
+  if(ta) ta.value=r;
+}
+
+function checkLeave(){
+  const f=document.getElementById('lf-from')?.value;
+  const t=document.getElementById('lf-to')?.value;
+  const dc=document.getElementById('lf-dc');
+  if(!dc)return;
+  if(!f||!t){dc.innerHTML='';return;}
+  if(new Date(t)<new Date(f)){dc.innerHTML='<div class="dc err">⚠ Ngày kết thúc phải sau ngày bắt đầu.</div>';return;}
+  const dates=new Set(allDates(f,t));
+  const conflict=LEAVES.find(e=>e.name===ME.name&&e.dept===ME.dept&&e.status!=='rejected'&&allDates(e.from,e.to).some(d=>dates.has(d)));
+  if(conflict){dc.innerHTML=`<div class="dc err">⚠ Trùng với đơn "${conflict.type}" (${fmtD(conflict.from)} – ${fmtD(conflict.to)}).</div>`;return;}
+  const sess=document.getElementById('lf-session')?.value||'Cả ngày';
+  const days=workdays(f,t);
+  const actual=sess.includes('Nửa')?0.5:days;
+  dc.innerHTML=`<div class="dc ok">📅 ${actual} ngày làm việc (${fmtD(f)} – ${fmtD(t)}, không tính T7/CN)</div>`;
+}
+
+async function submitLeave(){
+  const f=document.getElementById('lf-from').value;
+  const t=document.getElementById('lf-to').value;
+  const sess=document.getElementById('lf-session').value;
+  const type=document.getElementById('lf-type').value;
+  const msg=document.getElementById('lf-msg');
+  if(!f||!t){msg.innerHTML='<div class="dc err">Vui lòng chọn ngày.</div>';return;}
+  if(new Date(t)<new Date(f)){msg.innerHTML='<div class="dc err">Ngày kết thúc phải sau ngày bắt đầu.</div>';return;}
+  const dates=new Set(allDates(f,t));
+  const conflict=LEAVES.find(e=>e.name===ME.name&&e.dept===ME.dept&&e.status!=='rejected'&&allDates(e.from,e.to).some(d=>dates.has(d)));
+  if(conflict){msg.innerHTML=`<div class="dc err">⚠ Trùng với đơn "${conflict.type}"!</div>`;return;}
+  const days=workdays(f,t);
+  const actual=sess.includes('Nửa')?0.5:days;
+  try{
+    await api('POST','leaves',{
+      id:'lv'+Date.now(),name:ME.name,dept:ME.dept,
+      type,session:sess,from:f,to:t,
+      handover:document.getElementById('lf-handover').value||'—',
+      reason:document.getElementById('lf-reason').value||'—',
+      days:actual,status:'pending',
+      label:new Date().toLocaleString('vi-VN',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'})
+    });
+    msg.innerHTML=`<div class="dc ok">✓ Đã gửi đơn ${type} (${actual} ngày)!</div>`;
+    await loadData();
+    renderLeaveForm();
+    document.getElementById('lf-msg').innerHTML=`<div class="dc ok">✓ Đã gửi đơn ${type} (${actual} ngày)!</div>`;
+  }catch(e){msg.innerHTML=`<div class="dc err">Lỗi: ${e.message}</div>`;}
+}
+
+function renderWfhForm(){
+  const el=document.getElementById('ssec-wfh');
+  const t=today();
+  el.innerHTML=`<div class="info rose">🏠 Mỗi ngày <b>chỉ 1 người WFH</b> — nếu đã có người đăng ký (chưa bị từ chối), bạn không thể đăng ký thêm.</div>
+  <div class="card">
+    <div class="ch"><div class="ct">🏠 Đăng ký Work from Home</div></div>
+    <div class="cb">
+      <div id="wf-msg"></div>
+      <div class="fg2">
+        <div class="fg"><label>Ngày WFH <span class="req">*</span></label><input type="date" id="wf-date" value="${t}" onchange="checkWfh()"></div>
+        <div class="fg"><label>Buổi</label><select id="wf-session"><option>Cả ngày</option><option>Buổi sáng</option><option>Buổi chiều</option></select></div>
+        <div class="fg full"><label>Công việc dự kiến <span class="req">*</span></label><textarea id="wf-work" placeholder="Mô tả chi tiết công việc khi WFH..."></textarea></div>
+        <div class="fg full"><label>Ghi chú</label><input type="text" id="wf-note" placeholder="Lý do WFH... (không bắt buộc)"></div>
+      </div>
+      <div id="wf-dc"></div>
+      <div class="ffoot">
+        <button class="btn" onclick="renderWfhForm()">Xóa</button>
+        <button class="btn rose" onclick="submitWfh()">🏠 Gửi đăng ký WFH</button>
+      </div>
+    </div>
+  </div>`;
+  checkWfh();
+}
+
+function checkWfh(){
+  const date=document.getElementById('wf-date')?.value;
+  const dc=document.getElementById('wf-dc');
+  if(!dc||!date){if(dc)dc.innerHTML='';return;}
+  const conflicts=WFHS.filter(e=>e.date===date&&e.status!=='rejected');
+  if(conflicts.length) dc.innerHTML=`<div class="dc err">⚠ Ngày ${fmtD(date)} đã có ${conflicts.map(e=>e.name).join(', ')} đăng ký WFH.</div>`;
+  else dc.innerHTML=`<div class="dc ok">✓ Ngày ${fmtD(date)} còn trống, bạn có thể đăng ký WFH.</div>`;
+}
+
+async function submitWfh(){
+  const date=document.getElementById('wf-date').value;
+  const work=document.getElementById('wf-work').value.trim();
+  const msg=document.getElementById('wf-msg');
+  if(!date){msg.innerHTML='<div class="dc err">Vui lòng chọn ngày WFH.</div>';return;}
+  if(!work){msg.innerHTML='<div class="dc err">Vui lòng mô tả công việc dự kiến.</div>';return;}
+  const conflicts=WFHS.filter(e=>e.date===date&&e.status!=='rejected');
+  if(conflicts.length){msg.innerHTML=`<div class="dc err">⚠ Ngày ${fmtD(date)} đã có ${conflicts.map(e=>e.name).join(', ')} đăng ký WFH.</div>`;return;}
+  try{
+    await api('POST','wfhs',{
+      id:'wf'+Date.now(),name:ME.name,dept:ME.dept,
+      date,session:document.getElementById('wf-session').value,
+      work,note:document.getElementById('wf-note').value||'—',
+      status:'pending',
+      label:new Date().toLocaleString('vi-VN',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'})
+    });
+    msg.innerHTML='<div class="dc ok">✓ Đã gửi đăng ký WFH!</div>';
+    await loadData();
+    renderWfhForm();
+    document.getElementById('wf-msg').innerHTML='<div class="dc ok">✓ Đã gửi đăng ký WFH!</div>';
+  }catch(e){msg.innerHTML=`<div class="dc err">Lỗi: ${e.message}</div>`;}
+}
+
+function renderMyRequests(){
+  const el=document.getElementById('ssec-my');
+  const myL=LEAVES.filter(e=>e.name===ME.name&&e.dept===ME.dept);
+  const myW=WFHS.filter(e=>e.name===ME.name&&e.dept===ME.dept);
+  const stIcon={pending:'⏳ Chờ duyệt',approved:'✅ Đã duyệt',rejected:'❌ Từ chối'};
+  let h=`<div class="card"><div class="ch"><div class="ct">🌴 Đơn nghỉ phép của tôi</div></div><div class="cb">`;
+  h+=myL.length?myL.map(e=>`<div class="ri"><div style="flex:1">
+    <div class="ri-kind" style="color:#1B8A99">🌴 ${e.type}</div>
+    <div class="ri-main">${fmtD(e.from)} → ${fmtD(e.to)} · <b style="color:#1B8A99">${e.days} ngày</b></div>
+    <div class="ri-sub">${e.session}${e.reason&&e.reason!=='—'?' · '+e.reason:''} · Gửi ${e.label}</div>
+    ${e.status==='rejected'&&e.reject_note?`<div class="ri-sub" style="color:#a01f44">Lý do từ chối: ${e.reject_note}</div>`:''}
+  </div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+    <span class="pill ${e.status}">${stIcon[e.status]}</span>
+    ${e.status==='pending'?`<button class="btn sm" style="color:#a01f44;border-color:#D42B5A;font-size:11px" onclick="deleteMyRequest('${e.id}','leaves','${e.type.replace(/'/g,"\\'")}')">🗑 Xóa</button>`:''}
+  </div></div>`).join('')
+  :'<div class="empty">Bạn chưa có đơn nghỉ phép nào.</div>';
+  h+=`</div></div><div class="card"><div class="ch"><div class="ct">🏠 Đăng ký WFH của tôi</div></div><div class="cb">`;
+  h+=myW.length?myW.map(e=>`<div class="ri"><div style="flex:1">
+    <div class="ri-kind" style="color:#D42B5A">🏠 WFH</div>
+    <div class="ri-main">${fmtD(e.date)} · ${e.session}</div>
+    <div class="ri-sub">${e.work} · Gửi ${e.label}</div>
+    ${e.status==='rejected'&&e.reject_note?`<div class="ri-sub" style="color:#a01f44">Lý do từ chối: ${e.reject_note}</div>`:''}
+  </div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+    <span class="pill ${e.status}">${stIcon[e.status]}</span>
+    ${e.status==='pending'?`<button class="btn sm" style="color:#a01f44;border-color:#D42B5A;font-size:11px" onclick="deleteMyRequest('${e.id}','wfhs','WFH ${fmtD(e.date)}')">🗑 Xóa</button>`:''}
+  </div></div>`).join('')
+  :'<div class="empty">Bạn chưa có đăng ký WFH nào.</div>';
+  h+=`</div></div>`;
+  el.innerHTML=h;
+}
+
+async function deleteMyRequest(id, table, label){
+  if(!confirm(`Xóa đơn "${label}"?\n\nChỉ có thể xóa đơn đang Chờ duyệt.`)) return;
+  try{
+    await api('DELETE', table, null, 'id=eq.'+id);
+    await loadData();
+    renderMyRequests();
+  }catch(e){ alert('Lỗi khi xóa: '+e.message); }
+}
+
+// ── AI CHATBOT ──
+let chatHistory=[];
+let chatOpen=false;
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('ai-panel').classList.toggle('hidden',!chatOpen);
+  if(chatOpen) document.getElementById('ai-input').focus();
+}
+
+function sendSug(el){
+  document.getElementById('ai-input').value=el.textContent;
+  sendChat();
+}
+
+async function sendChat(){
+  const input=document.getElementById('ai-input');
+  const text=input.value.trim();
+  if(!text)return;
+  input.value='';
+  appendMsg(text,'user');
+  chatHistory.push({role:'user',content:text});
+
+  // typing indicator
+  const typingId='typing-'+Date.now();
+  const msgs=document.getElementById('ai-msgs');
+  msgs.innerHTML+=`<div class="ai-msg typing" id="${typingId}">⏳ Đang trả lời...</div>`;
+  msgs.scrollTop=msgs.scrollHeight;
+
+  // Build context about current user
+  const myLeaves=LEAVES.filter(e=>e.name===ME.name&&e.dept===ME.dept);
+  const myWfhs=WFHS.filter(e=>e.name===ME.name&&e.dept===ME.dept);
+  const usedDays=myLeaves.filter(e=>e.status==='approved').reduce((s,e)=>s+Number(e.days||0),0);
+
+  const system=`Bạn là trợ lý HR nội bộ của công ty ShareT. Trả lời ngắn gọn, thân thiện bằng tiếng Việt.
+
+Chính sách công ty:
+- Mỗi nhân viên có 12 ngày phép năm
+- WFH: mỗi ngày chỉ 1 người, đăng ký trước ít nhất 1 ngày
+- Nghỉ bệnh: cần nộp giấy bác sĩ nếu nghỉ trên 2 ngày liên tục
+- Phép không lương: tối đa 30 ngày/năm, cần phê duyệt từ trưởng phòng
+- Nghỉ cưới: 3 ngày; tang: 3 ngày
+- Phép bù: phải được xác nhận bởi manager
+
+Thông tin nhân viên hiện tại:
+- Tên: ${ME.name}
+- Phòng ban: ${ME.dept}
+- Đã dùng: ${usedDays} ngày phép
+- Còn lại: ${Math.max(0,12-usedDays)} ngày phép
+- Số đơn đã gửi: ${myLeaves.length} nghỉ phép, ${myWfhs.length} WFH`;
+
+  try{
+    const reply=await callClaude(chatHistory.slice(-8), system);
+    document.getElementById(typingId)?.remove();
+    appendMsg(reply,'bot');
+    chatHistory.push({role:'assistant',content:reply});
+  }catch(e){
+    document.getElementById(typingId)?.remove();
+    appendMsg('Xin lỗi, không kết nối được AI lúc này.','bot');
+  }
+}
+
+function appendMsg(text,role){
+  const msgs=document.getElementById('ai-msgs');
+  const div=document.createElement('div');
+  div.className=`ai-msg ${role}`;
+  div.textContent=text;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+window.addEventListener('DOMContentLoaded',async()=>{
+  const t=new Date(); calY=t.getFullYear(); calM=t.getMonth();
+  await loadData();
+  try{
+    const s=localStorage.getItem('sharet_staff_me');
+    if(s){const p=JSON.parse(s);if(p.name&&p.dept){ME=p;document.getElementById('g-name').value=p.name;document.getElementById('g-dept').value=p.dept;initMain();}}
+  }catch{}
+});
+</script>
+</body>
+</html>
